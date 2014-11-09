@@ -12,12 +12,15 @@ module.exports = view.extend({
                     message = 'error404';
                     break;
                 default:
-                    message = 'defaultError'
+                    message = 'defaultError';
             }
             return message;
         }
     },
     created: function () {
-       console.error('Error ' + this.$root.params.code + ': ' + global.location.pathname);
+        console.error('Error ' +
+            this.$root.params.code +
+            ': ' +
+            global.location.pathname);
     }
 });

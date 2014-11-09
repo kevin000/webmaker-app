@@ -1,5 +1,3 @@
-var Vue = require('vue');
-
 module.exports = {
     className: 'slide-toggle',
     template: require('./index.html'),
@@ -17,7 +15,7 @@ module.exports = {
             return this['right-label'] || this.right;
         },
         val: {
-            $get: function() {
+            $get: function () {
                 return this.$parent[this.model];
             },
             $set: function (val) {

@@ -1,7 +1,5 @@
 var view = require('../../lib/view');
-var clone = require('clone');
 var page = require('page');
-var auth = require('../../lib/auth');
 
 module.exports = view.extend({
     id: 'profile',
@@ -26,27 +24,19 @@ module.exports = view.extend({
     methods: {
         logout: function (e) {
             e.preventDefault();
-            auth.logout();
+            this.model.auth.logout();
         },
         clean: function (e) {
             var self = this;
-            var sh = self.model._fs.Shell();
-            var fs = self.model._fs;
-            var sync = fs.sync;
 
-            function onClear(err) {
-                sync.request();
-                page('/sign-in');
-            }
-
-            fs.stat('/', function(e, stat) {
-                if (!stat.isDirectory()) {
-                    fs.unlink('/', onClear);
-                } else {
-                    sh.rm('/', {
-                        recursive: true
-                    }, onClear);
+            var username = this.model.data.user.username;
+            this.model.data.apps.forEach(function (app, index) {
+                if (app.author.username === username) {
+                    delete self.model.data.apps[index];
                 }
+            });
+            self.model.save(function () {
+                page('/sign-in');
             });
         }
     }

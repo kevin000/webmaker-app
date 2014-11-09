@@ -21,6 +21,9 @@ module.exports = function () {
     if (env === 'MOFODEV') {
         habitat.load('./config/mofodev.env');
     }
+    else if (env === 'STAGING' || env === 'NPM') {
+        habitat.load('./config/staging.env');
+    }
     habitat.load('./config/defaults.env');
 
     var keys = Object.keys(process.env);
@@ -31,7 +34,7 @@ module.exports = function () {
     });
 
     var string = 'module.exports = ' + JSON.stringify(all) + ';';
-    file('index.js', string)
+    return file('index.js', string)
         .pipe(gulp.dest('./config'));
 };
 
