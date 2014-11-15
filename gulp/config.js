@@ -1,5 +1,5 @@
 var habitat = require('habitat');
-var file = require('gulp-file');
+var file = require('./gulp-file');
 var gulp = require('gulp');
 var path = require('path');
 var env = new habitat('publish');
@@ -10,7 +10,8 @@ var expose = [
     'PUBLISH_ENDPOINT',
     'MAKEDRIVE_URL',
     'OFFLINE',
-    'PUBLISH_DEV_MODE'
+    'PUBLISH_DEV_MODE',
+	'FIREBASE_URL'
 ];
 
 module.exports = function () {
